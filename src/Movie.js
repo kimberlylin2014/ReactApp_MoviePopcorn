@@ -3,14 +3,10 @@ import "./Movie.css"
 
 
 class Movie extends Component {
-    // static defaultProps = {
-    //     votes: 0
-    // }
     constructor(props) {
         super(props)
         this.handleVoteClick = this.handleVoteClick.bind(this);
         this.handleFavClick = this.handleFavClick.bind(this);
-
         this.handleShowModalClick = this.handleShowModalClick.bind(this)
     }
     handleVoteClick(e) {
@@ -30,15 +26,19 @@ class Movie extends Component {
         this.props.openModal(this.props.id);
     }
     render() {
+        let favoriteBtnClass = "btn-info";
+        if(this.props.favorite) {
+            favoriteBtnClass = "btn-warning"
+        }
         return (
             <div className="Movie col-md-6 col-lg-3 mb-5">
                 <img alt="movie-img" src={this.props.imgUrl}></img>
                 <div className="d-flex justify-content-center mt-3 mb-3">
-                    <button className="btn btn-info mr-2" onClick={this.handleFavClick}>Save</button>
+                    <button className={`btn mr-2 ${favoriteBtnClass}`} onClick={this.handleFavClick}>Save</button>
                     <button className="btn btn-secondary ml-2" onClick={this.handleShowModalClick}>More</button>
                 </div>
                 <div className="d-flex justify-content-around align-items-center">
-                    <p className="m-0">Critics: {this.props.rating} %</p>
+                    <p className="m-0">Critics: {this.props.rating} </p>
                     <div className="vote-buttons">
                         Fans:
                         <i className="fas fa-arrow-up m-0" data-name="arrowUp" onClick={this.handleVoteClick}/>
@@ -46,11 +46,6 @@ class Movie extends Component {
                         <i className="fas fa-arrow-down m-0" data-name="arrowDown" onClick={this.handleVoteClick} />
                      </div>
                 </div>
-               
-                
-                
-
-
             </div>
         )
     }

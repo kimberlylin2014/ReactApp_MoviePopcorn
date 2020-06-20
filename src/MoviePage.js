@@ -24,42 +24,46 @@ class MoviePage extends Component {
                       showFavModal: false,
         }
         this.fetchData = this.fetchData.bind(this);
-        this.displayResults = this.displayResults.bind(this);
         this.handleLoadMoreClick = this.handleLoadMoreClick.bind(this);
+        this.displayResults = this.displayResults.bind(this);
         this.increaseVote = this.increaseVote.bind(this);
-        this.addToFavList = this.addToFavList.bind(this);
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
         this.openFavModal = this.openFavModal.bind(this);
         this.closeFavModal = this.closeFavModal.bind(this);
+        this.addToFavList = this.addToFavList.bind(this);
         this.removeFavorite = this.removeFavorite.bind(this);
     }
-    addToFavList(movieID) {
-        let favMovie = this.state.results.filter(movie => {
-            return movie.imdbID === movieID;
-        })
-        this.setState((currentState) => {
-            return {favorites: [...currentState.favorites, ...favMovie]};
-        }, () => {
-            window.localStorage.setItem("favorites", JSON.stringify(this.state.favorites))
-        })
-    }
-    increaseVote(movieID, delta) {
-        this.setState((currentState) => {
-            let newMovies = currentState.results.map(movie => {
-                if(movie.imdbID === movieID) {
-                    return {...movie, votes: movie.votes + delta};
-                }
-                return movie;
-            })
-            let newDisplayMovies = currentState.displayResults.map(movie => {
-                if(movie.imdbID === movieID) {
-                    return {...movie, votes: movie.votes + delta};
-                }
-                return movie;
-            })
-            return {results: newMovies, displayResults: newDisplayMovies};
-        });
+    async fetchData(newResult) { 
+        try {
+            // Start Loading Spinner
+            this.setState({resultsLoaded: false});
+            // Fetch movie with keyword
+            let url = API.getSearchUrl(newResult.searchKeyword);
+            let resp = await axios.get(url);
+            let data = await Helper.validateResponse(resp);
+            // Fetch each movie by ID
+            let promises = await data.Search.map(async (movie) => {
+                let urlWithMovieId  = API.getSearchByIdUrl(movie.imdbID);
+                let resp = await axios.get(urlWithMovieId);
+                let data = await Helper.validateResponse(resp);
+                return data;
+            });
+            // When All Promises are resolved, make copy using spread operator and setState
+            Promise.all(promises).then(data => {
+                let newResults = data.map(movie => {
+                    movie.votes = 0;
+                    movie.favorite = false;
+                    return movie;
+                })
+                this.setState({results: newResults, displayResults: data.slice(0,8), 
+                               resultsLoaded: true, searchUrl: url, indexToDisplayMovies: 0}
+                );    
+
+            });
+        }catch(e) {
+            console.log(e);
+        }   
     }
     async handleLoadMoreClick() {
         try {
@@ -83,6 +87,7 @@ class MoviePage extends Component {
                     this.setState((currentState) => {
                         let newData = data.map(newMovie => {
                             newMovie.votes = 0;
+                            newMovie.favorite = false;
                             return newMovie;
                         })
                         return {results: [...currentState.results, ...newData]}
@@ -98,36 +103,6 @@ class MoviePage extends Component {
             console.log(e);
         }
     }
-    async fetchData(newResult) { 
-        try {
-            // Start Loading Spinner
-            this.setState({resultsLoaded: false});
-            // Fetch movie with keyword
-            let url = API.getSearchUrl(newResult.searchKeyword);
-            let resp = await axios.get(url);
-            let data = await Helper.validateResponse(resp);
-            // Fetch each movie by ID
-            let promises = await data.Search.map(async (movie) => {
-                let urlWithMovieId  = API.getSearchByIdUrl(movie.imdbID);
-                let resp = await axios.get(urlWithMovieId);
-                let data = await Helper.validateResponse(resp);
-                return data;
-            });
-            // When All Promises are resolved, make copy using spread operator and setState
-            Promise.all(promises).then(data => {
-                let newResults = data.map(movie => {
-                    movie.votes = 0;
-                    return movie;
-                })
-                this.setState({results: newResults, displayResults: data.slice(0,8), 
-                               resultsLoaded: true, searchUrl: url, indexToDisplayMovies: 0}
-                );    
-
-            });
-        }catch(e) {
-            console.log(e);
-        }   
-    }
     displayResults() {
         let movies = this.state.displayResults.map(movie => {
             return <Movie 
@@ -137,6 +112,7 @@ class MoviePage extends Component {
                 title = {movie.Title}
                 imgUrl = {movie.Poster}
                 year = {movie.Year}
+                favorite = {movie.favorite}
                 rating = {parseFloat(movie.imdbRating)}
                 increaseVote = {this.increaseVote}
                 addToFavList = {this.addToFavList}
@@ -160,6 +136,23 @@ class MoviePage extends Component {
         } 
         return displayResult;
     }
+    increaseVote(movieID, delta) {
+        this.setState((currentState) => {
+            let newMovies = currentState.results.map(movie => {
+                if(movie.imdbID === movieID) {
+                    return {...movie, votes: movie.votes + delta};
+                }
+                return movie;
+            })
+            let newDisplayMovies = currentState.displayResults.map(movie => {
+                if(movie.imdbID === movieID) {
+                    return {...movie, votes: movie.votes + delta};
+                }
+                return movie;
+            })
+            return {results: newMovies, displayResults: newDisplayMovies};
+        });
+    }
     closeModal() {
         this.setState({showModal: false});
     }
@@ -182,6 +175,19 @@ class MoviePage extends Component {
         this.setState({favorites: filteredFavorites}, () => {
             window.localStorage.setItem("favorites", this.state.favorites)
         });
+    }
+    addToFavList(movieID) {
+        let favMovie = this.state.results.filter(movie => {
+            return movie.imdbID === movieID;
+        })
+        let copyFavMovie = [...favMovie]
+        copyFavMovie[0].favorite = true;
+
+        this.setState((currentState) => {
+            return {favorites: [...currentState.favorites, ...copyFavMovie]};
+        }, () => {
+            window.localStorage.setItem("favorites", JSON.stringify(this.state.favorites))
+        })
     }
     render() {   
         let movieModalComponent =  <MovieModal 
