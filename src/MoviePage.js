@@ -204,7 +204,7 @@ class MoviePage extends Component {
                     openFavModal = {this.openFavModal}
                 />
                 <div id="form-section">
-                    <h1 className="text-center m-5">IMDB Movies</h1>
+                    <h1 className="text-center m-5">Popcorn Movies</h1>
                     <Form 
                         fetchData = {this.fetchData}
                     />
