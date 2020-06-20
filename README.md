@@ -4,7 +4,7 @@
 * I recreated my Movie Search app, that was done in vanilla JS, to this new app that is completed in React. This is a project that is still in progress. More features will be added on later.
 
 ## Video Demo
-* https://www.youtube.com/watch?v=6RN2M1JHPU8&feature=youtu.be
+https://www.youtube.com/watch?v=UJPHRCh0Fc8&feature=youtu.be
 
 ## Emphasis
 * Making asynchronous calls with Axios and access data with callbacks
