@@ -1,0 +1,14 @@
+
+.MoviePage {
+    padding-bottom: 100px;
+}
+
+.MoviePage #form-section {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.MoviePage #movie-results {
+    margin: 100px auto;
+    width: 80%;
+}

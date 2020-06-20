@@ -1,0 +1,11 @@
+.Modal .subtitle {
+    color: #01a9b4;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.Modal p {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
