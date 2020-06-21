@@ -105,6 +105,10 @@ class MoviePage extends Component {
     }
     displayResults() {
         let movies = this.state.displayResults.map(movie => {
+            movie.favorite = false;
+            if(this.state.favorites.length > 0 && this.state.favorites.indexOf(movie) > 0) {
+                movie.favorite = true;
+            }
             return <Movie 
                 votes = {movie.votes}
                 key = {movie.imdbID}
@@ -157,10 +161,11 @@ class MoviePage extends Component {
         this.setState({showModal: false});
     }
     openModal(movieID) {
-        let modalMovie = this.state.results.filter(movie => {
-            return movie.imdbID === movieID;
-        });
-        this.setState({showModal: true, modalMovie: modalMovie[0] });
+        this.setState((currState) => (
+            {showModal: true,
+             modalMovie : currState.results.filter(movie => movie.imdbID === movieID)[0]
+            }
+        ));
     }
     openFavModal() {
         this.setState({showFavModal: true});
@@ -169,22 +174,17 @@ class MoviePage extends Component {
         this.setState({showFavModal: false});
     }
     removeFavorite(movieID) {
-        let filteredFavorites = this.state.favorites.filter(movie => {
-            return movie.imdbID !== movieID
-        })
-        this.setState({favorites: filteredFavorites}, () => {
-            window.localStorage.setItem("favorites", this.state.favorites)
+        this.setState((currState) => {
+            return {favorites: currState.favorites.filter(movie => movie.imdbID !== movieID)}
         });
     }
     addToFavList(movieID) {
-        let favMovie = this.state.results.filter(movie => {
-            return movie.imdbID === movieID;
-        })
-        let copyFavMovie = [...favMovie]
-        copyFavMovie[0].favorite = true;
-
         this.setState((currentState) => {
-            return {favorites: [...currentState.favorites, ...copyFavMovie]};
+            let favMovie = currentState.results.filter(movie => movie.imdbID === movieID)
+            // let copyFavMovie = [...favMovie]
+            // copyFavMovie[0].favorite = true;
+
+            return {favorites: [...currentState.favorites, ...favMovie]};
         }, () => {
             window.localStorage.setItem("favorites", JSON.stringify(this.state.favorites))
         })

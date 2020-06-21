@@ -18,7 +18,6 @@ class Movie extends Component {
         this.props.increaseVote(this.props.id, delta)
     }
     handleFavClick() {
-        console.log("clicked fav");
         this.props.addToFavList(this.props.id)
     }
     handleShowModalClick() {
@@ -26,14 +25,16 @@ class Movie extends Component {
     }
     render() {
         let favoriteBtnClass = "btn-info";
+        let disabled = false;
         if(this.props.favorite) {
             favoriteBtnClass = "btn-warning"
+            disabled = true;
         }
         return (
             <div className="Movie col-md-6 col-lg-3 mb-5">
                 <img alt="movie-img" src={this.props.imgUrl}></img>
                 <div className="d-flex justify-content-center mt-3 mb-3">
-                    <button className={`btn mr-2 ${favoriteBtnClass}`} onClick={this.handleFavClick}>Save</button>
+                    <button className={`btn mr-2 ${favoriteBtnClass}`} onClick={this.handleFavClick} disabled={disabled}>Save</button>
                     <button className="btn btn-secondary ml-2" onClick={this.handleShowModalClick}>More</button>
                 </div>
                 <div className="d-flex justify-content-around align-items-center">
