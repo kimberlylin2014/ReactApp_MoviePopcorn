@@ -106,8 +106,13 @@ class MoviePage extends Component {
     displayResults() {
         let movies = this.state.displayResults.map(movie => {
             movie.favorite = false;
-            if(this.state.favorites.length > 0 && this.state.favorites.indexOf(movie) > 0) {
-                movie.favorite = true;
+            if(this.state.favorites.length > 0) {
+                for(let i = 0; i < this.state.favorites.length; i++) {
+                    if(this.state.favorites[i].imdbID === movie.imdbID) {
+                        movie.favorite = true;
+                        break;
+                    }
+                }
             }
             return <Movie 
                 votes = {movie.votes}
@@ -176,14 +181,13 @@ class MoviePage extends Component {
     removeFavorite(movieID) {
         this.setState((currState) => {
             return {favorites: currState.favorites.filter(movie => movie.imdbID !== movieID)}
+        }, () => {
+            window.localStorage.setItem("favorites", JSON.stringify(this.state.favorites))
         });
     }
     addToFavList(movieID) {
         this.setState((currentState) => {
             let favMovie = currentState.results.filter(movie => movie.imdbID === movieID)
-            // let copyFavMovie = [...favMovie]
-            // copyFavMovie[0].favorite = true;
-
             return {favorites: [...currentState.favorites, ...favMovie]};
         }, () => {
             window.localStorage.setItem("favorites", JSON.stringify(this.state.favorites))
