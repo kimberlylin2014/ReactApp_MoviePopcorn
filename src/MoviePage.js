@@ -33,6 +33,8 @@ class MoviePage extends Component {
         this.closeFavModal = this.closeFavModal.bind(this);
         this.addToFavList = this.addToFavList.bind(this);
         this.removeFavorite = this.removeFavorite.bind(this);
+
+        this.sortDisplayResult = this.sortDisplayResult.bind(this);
     }
     async fetchData(newResult) { 
         try {
@@ -193,6 +195,20 @@ class MoviePage extends Component {
             window.localStorage.setItem("favorites", JSON.stringify(this.state.favorites))
         })
     }
+    sortDisplayResult(sortType) {
+        this.setState(currState => {
+            if(currState.displayResults.length > 0 && sortType === "low-to-high") {
+                return {displayResults: currState.displayResults.sort((a,b) => {
+                    return parseFloat(a.imdbRating) - parseFloat(b.imdbRating)
+                })}
+            } 
+            if (currState.displayResults.length > 0 && sortType === "high-to-low"){
+                return {displayResults: currState.displayResults.sort((a,b) => {
+                    return parseFloat(b.imdbRating) - parseFloat(a.imdbRating)
+                })}
+            }
+        })
+    }
     render() {   
         let movieModalComponent =  <MovieModal 
                                         show = {this.state.showModal}
@@ -212,6 +228,8 @@ class MoviePage extends Component {
                 {this.state.showFavModal ? favModalComponent : ""}
                 <Header 
                     openFavModal = {this.openFavModal}
+                    sortDisplayResult = {this.sortDisplayResult}
+                    displayResults = {this.state.displayResults}
                 />
                 <div id="form-section">
                     <h1 className="text-center m-5">Popcorn Movies</h1>

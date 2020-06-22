@@ -3,11 +3,11 @@
 }
 
 .Movie p {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .Movie .vote-buttons {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .Movie img {
@@ -24,7 +24,7 @@
 }
 
 .Movie .fas {
-    width: 40px;
+    width: 25px;
 }
 
 .Movie .fa-arrow-up {
