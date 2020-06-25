@@ -1,0 +1,20 @@
+.DetailMovie button {
+    width: 100px;
+    margin: 20px auto;
+}
+.DetailMovie h1 {
+    margin-top: 0px;
+    padding-top: 30px;
+    margin-bottom: 30px;
+}
+.DetailMovie img {
+    width: 300px;
+    height: 400px;
+    align-self: center;
+
+}
+.DetailMovie {
+    background-color: #092532;
+    height: 100vh;
+    color: white;
+}

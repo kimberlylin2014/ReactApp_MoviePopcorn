@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import "./Movie.css"
-
+import {Link} from "react-router-dom"
 class Movie extends Component {
     constructor(props) {
         super(props)
@@ -35,7 +35,7 @@ class Movie extends Component {
                 <img alt="movie-img" src={this.props.imgUrl}></img>
                 <div className="d-flex justify-content-center mt-3 mb-3">
                     <button className={`btn mr-2 ${favoriteBtnClass}`} onClick={this.handleFavClick} disabled={disabled}>Save</button>
-                    <button className="btn btn-secondary ml-2" onClick={this.handleShowModalClick}>More</button>
+                    <button className="btn btn-secondary ml-2" onClick={this.handleShowModalClick}>Overview</button>
                 </div>
                 <div className="d-flex justify-content-around align-items-center">
                     <p className="m-0">Critics: {this.props.rating} </p>
@@ -46,6 +46,13 @@ class Movie extends Component {
                         <i className="fas fa-arrow-down m-0" data-name="arrowDown" onClick={this.handleVoteClick} />
                      </div>
                 </div>
+                
+                        <Link exact to={{
+                        pathname: `/movie/${this.props.id}`,
+                        state: {movieFromMainPage: this.props.movie}
+                    }}><button className='btn btn-dark'>Details Page  </button></Link>
+              
+               
             </div>
         )
     }
