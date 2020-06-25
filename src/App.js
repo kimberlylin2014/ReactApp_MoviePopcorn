@@ -9,12 +9,10 @@ class App extends Component {
     return(
         <div >
           <div className="justify-content-center">
-
             <Switch>
               <Route exact path='/' component={MoviePage}/>
               <Route exact path='/movie/:id' render={(routerProps) => <DetailMovie {...routerProps}/>}/>
             </Switch>
-            {/* <MoviePage /> */}
           </div>
         </div>
     )

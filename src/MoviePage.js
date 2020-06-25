@@ -227,11 +227,11 @@ class MoviePage extends Component {
             <div className="MoviePage">
                 {this.state.showModal ? movieModalComponent : ""}
                 {this.state.showFavModal ? favModalComponent : ""}
-                {/* <Header 
+                <Header 
                     openFavModal = {this.openFavModal}
                     sortDisplayResult = {this.sortDisplayResult}
                     displayResults = {this.state.displayResults}
-                /> */}
+                />
                 <div id="form-section">
                     <h1 className="text-center m-5">Popcorn Movies</h1>
                     <Form 

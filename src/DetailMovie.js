@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from "react-router-dom"
 import "./DetailMovie.css"
+
 class DetailMovie extends Component {
     constructor(props) {
         super(props)

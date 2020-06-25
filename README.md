@@ -7,9 +7,11 @@
 https://youtu.be/IRodi1vQOl0
 
 ## Emphasis
+* Client-Side Routing with React-Router-Dom
 * Making asynchronous calls with Axios and access data with callbacks
 * Utilize Window.localStorage to store user's favorite movies
 * Using npm react-bootstrap to use Bootstrap Components
+* Sort movies by ratings
 * Fully responsive webpage
 * Fetch new data as users click on "load more"
 
@@ -17,5 +19,5 @@ https://youtu.be/IRodi1vQOl0
 * Online Course: The odern React Bootcamp by Colt Steele (https://www.udemy.com/course/modern-react-bootcamp/)
 * API from OMDb API (http://omdbapi.com/)
 * This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
-* npm axios and react-bootstrap
+
 
