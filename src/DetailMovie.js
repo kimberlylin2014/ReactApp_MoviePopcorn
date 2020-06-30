@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from "react-router-dom"
+import {Link, withRouter} from "react-router-dom"
 import "./DetailMovie.css"
 
 class DetailMovie extends Component {
@@ -8,7 +8,7 @@ class DetailMovie extends Component {
         this.handleGoBack = this.handleGoBack.bind(this)
     }
     handleGoBack() {
-        this.props.history.push("/")
+        this.props.history.goBack()
     }
     render() {
         const {movieFromMainPage : movie} = this.props.location.state;
@@ -39,4 +39,4 @@ class DetailMovie extends Component {
     }
 }
 
-export default DetailMovie;
+export default withRouter(DetailMovie);

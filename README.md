@@ -2,7 +2,7 @@
 This project is inspired by Colt Steele's The Web Developer Bootcamp on Udemy
 
 ### Video Demo
-https://youtu.be/IRodi1vQOl0
+https://youtu.be/0jQ6I5IgIZA
 
 ### Frontend Language/Framework/Libraries
 * Javascript
