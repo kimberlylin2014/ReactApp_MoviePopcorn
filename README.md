@@ -1,19 +1,32 @@
 
 
 ## Movie Popcorn
-* I recreated my Movie Search app, that was done in vanilla JS, to this new app that is completed in React. This is a project that is still in progress. More features will be added on later.
+This project is inspired by Colt Steele's The Web Developer Bootcamp on Udemy
+
+## Frontend Language/Framework
+* React
+* HTML5
+* CSS3
+* React-Bootstrap
+* Javascript
+
+##App Features:
+* This app allows users to search for movies
+* Each search is fetching data from OMDb API
+* Then webpage will load 10 movies at a time. User may scroll and click on 'load more'. Then more results will load at the bottom of the page
+*  Users can sort the results by 'high to low' and 'low to high' ratings
+* Users can select their favorite movies and add it to a "favorite" list
+
+## Personal Learning Focus:
+This project is mainly for learning purposes with the emphasis on the following concepts:
+* React Class Components
+* Managing state between components
+* Making asynchronous calls witih Axios and access data with callbacks
+* Client-Side Routing with React-Router-Dom
+* Utilize Window.localStorage to store user's favorite movies
 
 ## Video Demo
 https://youtu.be/IRodi1vQOl0
-
-## Emphasis
-* Client-Side Routing with React-Router-Dom
-* Making asynchronous calls with Axios and access data with callbacks
-* Utilize Window.localStorage to store user's favorite movies
-* Using npm react-bootstrap to use Bootstrap Components
-* Sort movies by ratings
-* Fully responsive webpage
-* Fetch new data as users click on "load more"
 
 ## Resources
 * Online Course: The odern React Bootcamp by Colt Steele (https://www.udemy.com/course/modern-react-bootcamp/)
