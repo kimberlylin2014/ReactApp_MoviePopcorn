@@ -1,6 +1,9 @@
 # Movie Popcorn
 This project is inspired by Colt Steele's The Web Developer Bootcamp on Udemy
 
+### Video Demo
+https://youtu.be/IRodi1vQOl0
+
 ### Frontend Language/Framework/Libraries
 * Javascript
 * React
@@ -8,7 +11,6 @@ This project is inspired by Colt Steele's The Web Developer Bootcamp on Udemy
 * CSS3
 * React-Bootstrap
 * Client-Side Routing
-
 
 ### App Features:
 * This app allows users to search for movies with any keywords
@@ -25,9 +27,6 @@ This project is mainly for learning purposes with the emphasis on the following 
 * Making asynchronous calls witih Axios and access data with callbacks
 * Using Client-Side Routing with React-Router-Dom
 * Utilizing Window.localStorage to store user's favorite movies
-
-### Video Demo
-https://youtu.be/IRodi1vQOl0
 
 ### Resources
 * Online Course: The odern React Bootcamp by Colt Steele (https://www.udemy.com/course/modern-react-bootcamp/)
