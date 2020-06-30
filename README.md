@@ -10,7 +10,7 @@ https://youtu.be/IRodi1vQOl0
 * HTML5
 * CSS3
 * React-Bootstrap
-* Client-Side Routing
+* Client-Side Routings
 
 ### App Features:
 * This app allows users to search for movies with any keywords
